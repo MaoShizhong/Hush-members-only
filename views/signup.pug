@@ -18,17 +18,19 @@ block content
     form(action="" method="POST" class="flex flex-col gap-4")
         label(class="flex flex-col")
             p(class="text-sm") Username (required):
-            input(type="text" required min=4)
+            input(type="text" class="px-1 text-zinc-800" autocomplete="off" required min=4)
         label(class="flex flex-col")
             p(class="text-sm") First name (required):
-            input(type="text" required)
+            input(type="text" class="px-1 text-zinc-800" autocomplete="off" required)
         label(class="flex flex-col")
             p(class="text-sm") Last name:
-            input(type="text")
+            input(type="text" class="px-1 text-zinc-800" autocomplete="off")
         label(class="flex flex-col")
             p(class="text-sm") Password (required):
-            input(type="text" required)
+            input(type="text" class="px-1 password text-zinc-800 valid:outline-green-500 invalid:outline-red-600" pattern="^(?=.*[a-zA-Z])(?=.*\\d).{8,}$" autocomplete="off" required)
         label(class="flex flex-col")
             p(class="text-sm") Confirm password (required):
-            input(type="text" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" required)
+            input(type="text" class="px-1 password text-zinc-800" autocomplete="off" required)
         button(type="submit" class="self-center text-lg hover:scale-110 hover:font-bold" aria-label="Register account") > Join quietly <
+
+    script(defer src="/scripts/signup.js")

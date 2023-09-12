@@ -729,9 +729,18 @@ video {
   padding: 1.5rem;
 }
 
+.p-1{
+  padding: 0.25rem;
+}
+
 .px-6{
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.px-1{
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .text-center{
@@ -794,6 +803,57 @@ video {
 .text-red-300{
   --tw-text-opacity: 1;
   color: rgb(252 165 165 / var(--tw-text-opacity));
+}
+
+.text-zinc-900{
+  --tw-text-opacity: 1;
+  color: rgb(24 24 27 / var(--tw-text-opacity));
+}
+
+.text-zinc-800{
+  --tw-text-opacity: 1;
+  color: rgb(39 39 42 / var(--tw-text-opacity));
+}
+
+.outline{
+  outline-style: solid;
+}
+
+.outline-2{
+  outline-width: 2px;
+}
+
+.outline-1{
+  outline-width: 1px;
+}
+
+.valid\:outline-green-800:valid{
+  outline-color: #166534;
+}
+
+.valid\:outline-green-500:valid{
+  outline-color: #22c55e;
+}
+
+.invalid\:border:invalid{
+  border-width: 1px;
+}
+
+.invalid\:border-red-600:invalid{
+  --tw-border-opacity: 1;
+  border-color: rgb(220 38 38 / var(--tw-border-opacity));
+}
+
+.invalid\:outline-red-300:invalid{
+  outline-color: #fca5a5;
+}
+
+.invalid\:outline-red-500:invalid{
+  outline-color: #ef4444;
+}
+
+.invalid\:outline-red-600:invalid{
+  outline-color: #dc2626;
 }
 
 .hover\:scale-125:hover{
