@@ -2,10 +2,11 @@ extends layout
 
 block content
     if loggedInUser
-        form(action="/join" method="POST")
-            label(for="join") Join us...quietly.
-            input(type="text" placeholder="Shhhhhh..." required)
-            button(type="submit" aria-label="Enable secret membership") Attempt to join in silence
+        form(action="/join" method="POST" class="flex flex-col gap-4")
+            label(class="flex flex-col") Join us...quietly.
+                input(type="text" placeholder="Shhhhhh..." required)
+            button(type="submit" aria-label="Enable secret membership") > Attempt to join in silence <
 
     else
-        a(href="signup" class="cursor-default"): div(class="w-[min(500px,90vw)] mx-auto bg-cover bg-hush hover:bg-angry aspect-square")
+        a(href="signup" class="cursor-default")
+            div(class="w-[min(500px,90vw)] mx-auto bg-cover bg-hush hover:bg-angry aspect-square")

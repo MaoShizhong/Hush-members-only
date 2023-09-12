@@ -9,28 +9,29 @@ block content
         li Password must contain at least 8 characters
         li Password must contain at least 1 letter (any case)
         li Password must contain at least 1 number
+        li Passwrod cannot contain any spaces
 
     if errors
         ul(class="mb-6 text-sm text-red-300 list-disc")
             each error in errors
-                li= error
+                li= error.msg
 
     form(action="" method="POST" class="flex flex-col gap-4")
         label(class="flex flex-col")
             p(class="text-sm") Username (required):
-            input(type="text" class="px-1 text-zinc-800" autocomplete="off" required min=4)
+            input(name="username" type="text" class="px-1 text-zinc-800" autocomplete="off" required min=4 value=(errors && username))
         label(class="flex flex-col")
             p(class="text-sm") First name (required):
-            input(type="text" class="px-1 text-zinc-800" autocomplete="off" required)
+            input(name="firstname" type="text" class="px-1 text-zinc-800" autocomplete="off" required value=(errors && firstname))
         label(class="flex flex-col")
             p(class="text-sm") Last name:
-            input(type="text" class="px-1 text-zinc-800" autocomplete="off")
+            input(name="lastname" type="text" class="px-1 text-zinc-800" autocomplete="off" value=(errors && lastname))
         label(class="flex flex-col")
             p(class="text-sm") Password (required):
-            input(type="text" class="px-1 password text-zinc-800 valid:outline-green-500 invalid:outline-red-600" pattern="^(?=.*[a-zA-Z])(?=.*\\d).{8,}$" autocomplete="off" required)
+            input(name="password" type="password" class="px-1 password text-zinc-800 valid:outline-green-500 invalid:outline-red-600" pattern="^(?=.*[a-zA-Z])(?=.*\\d)[^\\s]{8,}$" autocomplete="off" required)
         label(class="flex flex-col")
             p(class="text-sm") Confirm password (required):
-            input(type="text" class="px-1 password text-zinc-800" autocomplete="off" required)
+            input(name="confirm-password" type="password" class="px-1 password text-zinc-800" autocomplete="off")
         button(type="submit" class="self-center text-lg hover:scale-110 hover:font-bold" aria-label="Register account") > Join quietly <
 
     script(defer src="/scripts/signup.js")

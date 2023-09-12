@@ -1,16 +1,16 @@
-import express, { Request, Response } from 'express';
+import { Router } from 'express';
+import * as indexController from '../controllers/index_controller';
 
-export const indexRouter = express.Router();
+export const indexRouter = Router();
 
 /* GET home page. */
-indexRouter.get('/', (req: Request, res: Response): void => {
-    res.render('home');
-});
+indexRouter.get('/', indexController.getHomepage);
 
-indexRouter.get('/signup', (req: Request, res: Response): void => {
-    res.render('signup');
-});
+/* GET signup page */
+indexRouter.get('/signup', indexController.getSignupPage);
 
-indexRouter.get('/login', (req: Request, res: Response): void => {
-    res.render('login');
-});
+/* POST submit signup form */
+indexRouter.post('/signup', indexController.registerAccount);
+
+/* GET login page */
+indexRouter.get('/login', indexController.getLoginPage);
