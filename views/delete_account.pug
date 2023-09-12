@@ -2,7 +2,8 @@ extends layout
 
 block content
     h1(class="my-2 text-3xl font-bold") Delete account?
+    p(class="mt-2 mb-6 text-lg") This will also delete all posts associated with this account
 
-    form(action="" method="POST" class="flex gap-8")
+    form(action="" method="POST" class="flex gap-8 text-2xl")
         button(type="submit" class="hover:scale-125 hover:font-bold") YES
         a(href="/"): button(type="button" class="hover:scale-125 hover:font-bold") NO
