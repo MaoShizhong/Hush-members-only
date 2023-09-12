@@ -13,15 +13,22 @@ block content
 
     h1(class="mb-4 text-2xl font-bold") Posts
 
-    if posts
-        each post in posts
-            a(href=(currentUser.isMember ? post.author.url : '/?too_loud=go_away') class="w-full")
+
+    each post in posts
+        div(class="flex items-center w-[min(100%,650px)] gap-2 text-sm")
+            a(href=(currentUser.isMember ? post.author.url : '/?too_loud=go_away') class="flex-1")
                 div(class="flex flex-col gap-4 p-3 my-1 border rounded-md bg-zinc-700 hover:bg-zinc-600")
                     div(class="flex justify-between")
-                        h2(class="font-bold")!= post.title
+                        h2(class="font-bold")= post.title
                         h2(class="italic") from: #[b #{currentUser.isMember ? post.author.username : 'Anonymous'}]
-                    p!= post.text
+                    div
+                        each line in post.text
+                            p!= line
                     p(class="self-end") #[i #{post.timestamp.toLocaleString('en-GB', timestampOptions)}]
+
+            if currentUser.isAdmin
+                a(href=`${post.url}/delete`): button X
+
 
     else
         p(class="mt-6") Nothing here!

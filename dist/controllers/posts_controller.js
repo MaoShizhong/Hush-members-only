@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addNewPost = exports.getNewPostForm = exports.showPosts = void 0;
+exports.deletePost = exports.addNewPost = exports.getNewPostForm = exports.showPosts = void 0;
 const Post_1 = require("../models/Post");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const express_validator_1 = require("express-validator");
@@ -27,7 +27,11 @@ const getNewPostForm = (req, res) => {
 exports.getNewPostForm = getNewPostForm;
 exports.addNewPost = [
     (0, express_validator_1.body)('title', 'Title cannot be empty').trim().notEmpty().escape(),
-    (0, express_validator_1.body)('text', 'Message body cannot be empty').trim().notEmpty().escape(),
+    (0, express_validator_1.body)('text', 'Message body cannot be empty')
+        .trim()
+        .notEmpty()
+        .customSanitizer((text) => text.replaceAll('\r', '').replaceAll(/\n+/g, '\n').split('\n'))
+        .escape(),
     (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
@@ -45,3 +49,10 @@ exports.addNewPost = [
         res.redirect('/posts');
     })),
 ];
+exports.deletePost = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const existingPost = yield Post_1.Post.findById(req.params.id).exec();
+    if (!existingPost)
+        return res.redirect('/?too_loud=go_away');
+    yield Post_1.Post.findByIdAndDelete(req.params.id);
+    res.redirect('/posts');
+}));

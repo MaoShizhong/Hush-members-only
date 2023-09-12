@@ -19,10 +19,11 @@ export const getSignupPage = (req: Request, res: Response): void => {
 };
 
 export const registerAccount = [
-    body('username', 'Username must be a minimum of 4 characters')
+    body('username', 'Username must be a minimum of 4 characters (no spaces)')
         .trim()
         .isLength({ min: 4 })
         .escape()
+        .custom((username: string): boolean => !username.includes(' '))
         .custom(async (username: string): Promise<void> => {
             const existingUser = await User.findOne({ username: username }).exec();
             if (existingUser) throw new Error('Username already in use');
@@ -68,6 +69,7 @@ export const registerAccount = [
                     lastname: req.body.lastname || undefined,
                     password: hashedPassword,
                     isMember: false,
+                    isAdmin: false,
                 });
 
                 await user.save();
@@ -105,7 +107,12 @@ export const logout = (req: Request, res: Response, next: NextFunction): void =>
 
 // Secret club join attempt
 export const joinSecretClub = [
-    body('secret', 'You are too loud to join us. Access denied.').trim().isEmpty(),
+    body('secret', 'You are too loud to join us. Access denied.')
+        .trim()
+        .custom(
+            (password: string): boolean =>
+                password === '' || password === 'flippityfloppitybippityboppity'
+        ),
 
     expressAsyncHandler(async (req: Request, res: Response): Promise<void> => {
         const errors = validationResult(req);
@@ -114,7 +121,11 @@ export const joinSecretClub = [
             return res.redirect('/?join=false');
         }
 
-        await User.findByIdAndUpdate(req.user?._id, { isMember: true });
+        const updatedMemberStatus = req.body.secret
+            ? { isMember: true, isAdmin: true }
+            : { isMember: true };
+
+        await User.findByIdAndUpdate(req.user?._id, updatedMemberStatus);
         res.redirect('/messages');
     }),
 ];

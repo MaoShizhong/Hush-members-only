@@ -7,6 +7,7 @@ type UserModel = {
     lastname?: string;
     password: string;
     isMember: boolean;
+    isAdmin: boolean;
     url: string;
 };
 
@@ -15,7 +16,8 @@ const UserSchema = new Schema<UserModel>({
     firstname: { type: String, required: true },
     lastname: String,
     password: { type: String, required: true },
-    isMember: { type: Boolean, required: true },
+    isMember: { type: Boolean, default: false, required: true },
+    isAdmin: { type: Boolean, default: false, required: true },
 });
 
 UserSchema.virtual('url').get(function (): string {

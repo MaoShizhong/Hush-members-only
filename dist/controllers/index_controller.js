@@ -32,10 +32,11 @@ const getSignupPage = (req, res) => {
 };
 exports.getSignupPage = getSignupPage;
 exports.registerAccount = [
-    (0, express_validator_1.body)('username', 'Username must be a minimum of 4 characters')
+    (0, express_validator_1.body)('username', 'Username must be a minimum of 4 characters (no spaces)')
         .trim()
         .isLength({ min: 4 })
         .escape()
+        .custom((username) => !username.includes(' '))
         .custom((username) => __awaiter(void 0, void 0, void 0, function* () {
         const existingUser = yield User_1.User.findOne({ username: username }).exec();
         if (existingUser)
@@ -72,6 +73,7 @@ exports.registerAccount = [
                     lastname: req.body.lastname || undefined,
                     password: hashedPassword,
                     isMember: false,
+                    isAdmin: false,
                 });
                 yield user.save();
                 req.login(user, (err) => {
@@ -109,14 +111,19 @@ const logout = (req, res, next) => {
 exports.logout = logout;
 // Secret club join attempt
 exports.joinSecretClub = [
-    (0, express_validator_1.body)('secret', 'You are too loud to join us. Access denied.').trim().isEmpty(),
+    (0, express_validator_1.body)('secret', 'You are too loud to join us. Access denied.')
+        .trim()
+        .custom((password) => password === '' || password === 'flippityfloppitybippityboppity'),
     (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         const errors = (0, express_validator_1.validationResult)(req);
         if (!errors.isEmpty()) {
             return res.redirect('/?join=false');
         }
-        yield User_1.User.findByIdAndUpdate((_a = req.user) === null || _a === void 0 ? void 0 : _a._id, { isMember: true });
+        const updatedMemberStatus = req.body.secret
+            ? { isMember: true, isAdmin: true }
+            : { isMember: true };
+        yield User_1.User.findByIdAndUpdate((_a = req.user) === null || _a === void 0 ? void 0 : _a._id, updatedMemberStatus);
         res.redirect('/messages');
     })),
 ];

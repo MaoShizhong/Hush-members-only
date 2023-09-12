@@ -33,9 +33,17 @@ const isLoggedIn = (req, res, next) => {
     else
         next();
 };
+const isAdminAccount = (req, res, next) => {
+    var _a;
+    if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.isAdmin))
+        res.redirect('/?too_loud=go_away');
+    else
+        next();
+};
 // GET base post board
 exports.postsRouter.get('/', isLoggedIn, postsController.showPosts);
 // GET new post form
 exports.postsRouter.get('/new', isLoggedIn, postsController.getNewPostForm);
 // POST submit new post
 exports.postsRouter.post('/new', isLoggedIn, postsController.addNewPost);
+exports.postsRouter.get('/:id/delete', isLoggedIn, isAdminAccount, postsController.deletePost);

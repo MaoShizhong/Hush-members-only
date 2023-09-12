@@ -16,7 +16,14 @@ export const getNewPostForm = (req: Request, res: Response): void => {
 
 export const addNewPost = [
     body('title', 'Title cannot be empty').trim().notEmpty().escape(),
-    body('text', 'Message body cannot be empty').trim().notEmpty().escape(),
+
+    body('text', 'Message body cannot be empty')
+        .trim()
+        .notEmpty()
+        .customSanitizer((text: string): string[] =>
+            text.replaceAll('\r', '').replaceAll(/\n+/g, '\n').split('\n')
+        )
+        .escape(),
 
     expressAsyncHandler(async (req: Request, res: Response): Promise<void> => {
         const errors = validationResult(req);
@@ -38,3 +45,14 @@ export const addNewPost = [
         res.redirect('/posts');
     }),
 ];
+
+export const deletePost = expressAsyncHandler(
+    async (req: Request, res: Response): Promise<void> => {
+        const existingPost = await Post.findById(req.params.id).exec();
+
+        if (!existingPost) return res.redirect('/?too_loud=go_away');
+
+        await Post.findByIdAndDelete(req.params.id);
+        res.redirect('/posts');
+    }
+);

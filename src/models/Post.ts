@@ -5,7 +5,7 @@ type PostModel = {
     author: Types.ObjectId;
     title: string;
     timestamp: Date;
-    text: string;
+    text: string[];
     url: string;
 };
 
@@ -13,7 +13,7 @@ const PostSchema = new Schema<PostModel>({
     author: { type: Schema.Types.ObjectId, ref: 'user', required: true },
     title: { type: String, required: true },
     timestamp: { type: Date, required: true },
-    text: { type: String, required: true },
+    text: { type: [String], required: true },
 });
 
 PostSchema.virtual('url').get(function (): string {

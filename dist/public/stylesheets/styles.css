@@ -658,6 +658,22 @@ video {
   width: 100%;
 }
 
+.w-5\/6{
+  width: 83.333333%;
+}
+
+.w-\[min\(100\%\2c 600px\)\]{
+  width: min(100%,600px);
+}
+
+.w-\[min\(100\%\2c 640px\)\]{
+  width: min(100%,640px);
+}
+
+.w-\[min\(100\%\2c 650px\)\]{
+  width: min(100%,650px);
+}
+
 .flex-1{
   flex: 1 1 0%;
 }
@@ -882,5 +898,19 @@ video {
   .sm\:text-base{
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+}
+
+@media (min-width: 768px){
+  .md\:w-5\/6{
+    width: 83.333333%;
+  }
+
+  .md\:w-2\/3{
+    width: 66.666667%;
+  }
+
+  .md\:w-1\/2{
+    width: 50%;
   }
 }

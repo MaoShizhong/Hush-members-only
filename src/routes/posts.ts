@@ -8,6 +8,11 @@ const isLoggedIn = (req: Request, res: Response, next: NextFunction): void => {
     else next();
 };
 
+const isAdminAccount = (req: Request, res: Response, next: NextFunction): void => {
+    if (!req.user?.isAdmin) res.redirect('/?too_loud=go_away');
+    else next();
+};
+
 // GET base post board
 postsRouter.get('/', isLoggedIn, postsController.showPosts);
 
@@ -16,3 +21,5 @@ postsRouter.get('/new', isLoggedIn, postsController.getNewPostForm);
 
 // POST submit new post
 postsRouter.post('/new', isLoggedIn, postsController.addNewPost);
+
+postsRouter.get('/:id/delete', isLoggedIn, isAdminAccount, postsController.deletePost);
