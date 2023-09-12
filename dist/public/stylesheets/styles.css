@@ -548,6 +548,10 @@ video {
   bottom: 1rem;
 }
 
+.left-4{
+  left: 1rem;
+}
+
 .right-4{
   right: 1rem;
 }
@@ -593,16 +597,16 @@ video {
   margin-top: 4rem;
 }
 
+.mt-2{
+  margin-top: 0.5rem;
+}
+
 .mt-4{
   margin-top: 1rem;
 }
 
 .mt-6{
   margin-top: 1.5rem;
-}
-
-.mt-2{
-  margin-top: 0.5rem;
 }
 
 .block{
@@ -615,6 +619,10 @@ video {
 
 .aspect-square{
   aspect-ratio: 1 / 1;
+}
+
+.h-12{
+  height: 3rem;
 }
 
 .h-16{
@@ -798,6 +806,14 @@ video {
 .text-zinc-800{
   --tw-text-opacity: 1;
   color: rgb(39 39 42 / var(--tw-text-opacity));
+}
+
+.transition{
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 .valid\:outline-green-500:valid{
