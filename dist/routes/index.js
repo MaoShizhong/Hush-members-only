@@ -8,5 +8,11 @@ const express_1 = __importDefault(require("express"));
 exports.indexRouter = express_1.default.Router();
 /* GET home page. */
 exports.indexRouter.get('/', (req, res) => {
-    res.render('index', { title: 'Express' });
+    res.render('home');
+});
+exports.indexRouter.get('/signup', (req, res) => {
+    res.render('signup');
+});
+exports.indexRouter.get('/login', (req, res) => {
+    res.render('login');
 });

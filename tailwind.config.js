@@ -1,8 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./dist/views/*.{html,pug}'],
+    content: ['./views/*.pug'],
     theme: {
-        extend: {},
+        extend: {
+            backgroundImage: {
+                hush: 'url("/hush.svg")',
+                angry: 'url("/angry.svg")',
+            },
+            fontFamily: {
+                jost: ['Jost', 'sans-serif', 'system-ui'],
+            },
+        },
     },
     plugins: [],
 };
