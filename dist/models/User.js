@@ -10,6 +10,6 @@ const UserSchema = new mongoose_1.Schema({
     isMember: { type: Boolean, required: true },
 });
 UserSchema.virtual('url').get(function () {
-    return `/users/${this._id}`;
+    return `/users/${this.username}`;
 });
 exports.User = (0, mongoose_1.model)('user', UserSchema);

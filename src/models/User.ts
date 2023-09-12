@@ -19,7 +19,7 @@ const UserSchema = new Schema<UserModel>({
 });
 
 UserSchema.virtual('url').get(function (): string {
-    return `/users/${this._id}`;
+    return `/users/${this.username}`;
 });
 
 export const User = model<UserModel>('user', UserSchema);

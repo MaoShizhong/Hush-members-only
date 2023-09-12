@@ -15,6 +15,7 @@ import bcrypt from 'bcrypt';
 import { User } from './models/User';
 import { indexRouter } from './routes/index';
 import { usersRouter } from './routes/users';
+import { postsRouter } from './routes/posts';
 
 declare global {
     interface Error {
@@ -76,14 +77,6 @@ passport.deserializeUser(async (id: Types.ObjectId, done): Promise<void> => {
 });
 
 /*
-    - Locals
-*/
-app.use((req: Request, res: Response, next: NextFunction): void => {
-    res.locals.currentUser = req.user;
-    next();
-});
-
-/*
     - Initialise middleware
 */
 app.set('views', path.join(__dirname, '..', 'views'));
@@ -101,10 +94,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /*
+    - Locals
+*/
+app.use((req: Request, res: Response, next: NextFunction): void => {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+/*
     - Routers
 */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction): void => {

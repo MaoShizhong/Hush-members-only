@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    -
+        const timestampOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+            weekday: "short",
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        }
+
+    h1(class="mb-4 text-2xl font-bold") Posts
+
+    if posts
+        each post in posts
+            a(href=(currentUser.isMember ? post.author.url : '/?too_loud=go_away') class="w-full")
+                div(class="flex flex-col gap-4 p-3 my-1 border rounded-md bg-zinc-700 hover:bg-zinc-600")
+                    div(class="flex justify-between")
+                        h2(class="font-bold")!= post.title
+                        h2(class="italic") from: #[b #{currentUser.isMember ? post.author.username : 'Anonymous'}]
+                    p!= post.text
+                    p(class="self-end") #[i #{post.timestamp.toLocaleString('en-GB', timestampOptions)}]
+
+    else
+        p(class="mt-6") Nothing here!
+
+    a(href='posts/new'): button(class="fixed h-8 aspect-square rounded-2xl bg-zinc-300 text-cl text-zinc-800 bottom-4 right-4") +

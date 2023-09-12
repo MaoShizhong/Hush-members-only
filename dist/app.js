@@ -28,6 +28,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const User_1 = require("./models/User");
 const index_1 = require("./routes/index");
 const users_1 = require("./routes/users");
+const posts_1 = require("./routes/posts");
 const app = (0, express_1.default)();
 /*
     - Mongoose setup
@@ -74,13 +75,6 @@ passport_1.default.deserializeUser((id, done) => __awaiter(void 0, void 0, void 
     }
 }));
 /*
-    - Locals
-*/
-app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    next();
-});
-/*
     - Initialise middleware
 */
 app.set('views', path_1.default.join(__dirname, '..', 'views'));
@@ -96,10 +90,18 @@ app.use((0, express_session_1.default)({ secret: process.env.SECRET, resave: fal
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 /*
+    - Locals
+*/
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
+/*
     - Routers
 */
 app.use('/', index_1.indexRouter);
 app.use('/users', users_1.usersRouter);
+app.use('/posts', posts_1.postsRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     next((0, http_errors_1.default)(404));

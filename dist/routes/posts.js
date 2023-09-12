@@ -23,20 +23,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.indexRouter = void 0;
+exports.postsRouter = void 0;
 const express_1 = require("express");
-const indexController = __importStar(require("../controllers/index_controller"));
-exports.indexRouter = (0, express_1.Router)();
-/* GET home page. */
-exports.indexRouter.get('/', indexController.getHomepage);
-/* GET signup page */
-exports.indexRouter.get('/signup', indexController.getSignupPage);
-/* POST submit signup form */
-exports.indexRouter.post('/signup', indexController.registerAccount);
-/* GET login page */
-exports.indexRouter.get('/login', indexController.getLoginPage);
-/* POST login attempt */
-exports.indexRouter.post('/login', indexController.attemptLogin);
-// Logout
-exports.indexRouter.get('/logout', indexController.logout);
-exports.indexRouter.post('/join', indexController.joinSecretClub);
+const postsController = __importStar(require("../controllers/posts_controller"));
+exports.postsRouter = (0, express_1.Router)();
+const isLoggedIn = (req, res, next) => {
+    if (!req.user)
+        res.redirect('/?too_loud=go_away');
+    else
+        next();
+};
+// GET base post board
+exports.postsRouter.get('/', isLoggedIn, postsController.showPosts);
+// GET new post form
+exports.postsRouter.get('/new', isLoggedIn, postsController.getNewPostForm);
+// POST submit new post
+exports.postsRouter.post('/new', isLoggedIn, postsController.addNewPost);

@@ -3,10 +3,15 @@ import { NextFunction, Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
+import passport from 'passport';
 
 // Show different homepage if logged in or not
 export const getHomepage = (req: Request, res: Response): void => {
-    res.render('home');
+    if (req.user && req.user.isMember) res.redirect('/posts');
+
+    res.render('home', {
+        failedJoin: req.query.join === 'false',
+    });
 };
 
 export const getSignupPage = (req: Request, res: Response): void => {
@@ -84,6 +89,32 @@ export const getLoginPage = (req: Request, res: Response): void => {
 };
 
 // Login attempt
-// export const attemptLogin = expressAsyncHandler(
-//     async (req: Request, res: Response): Promise<void> => {}
-// );
+export const attemptLogin = passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureMessage: true,
+});
+
+// Logout
+export const logout = (req: Request, res: Response, next: NextFunction): void => {
+    req.logout((err: Error): void => {
+        if (err) next(err);
+        else res.redirect('/');
+    });
+};
+
+// Secret club join attempt
+export const joinSecretClub = [
+    body('secret', 'You are too loud to join us. Access denied.').trim().isEmpty(),
+
+    expressAsyncHandler(async (req: Request, res: Response): Promise<void> => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.redirect('/?join=false');
+        }
+
+        await User.findByIdAndUpdate(req.user?._id, { isMember: true });
+        res.redirect('/messages');
+    }),
+];

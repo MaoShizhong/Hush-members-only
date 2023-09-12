@@ -14,3 +14,11 @@ indexRouter.post('/signup', indexController.registerAccount);
 
 /* GET login page */
 indexRouter.get('/login', indexController.getLoginPage);
+
+/* POST login attempt */
+indexRouter.post('/login', indexController.attemptLogin);
+
+// Logout
+indexRouter.get('/logout', indexController.logout);
+
+indexRouter.post('/join', indexController.joinSecretClub);

@@ -12,14 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLoginPage = exports.registerAccount = exports.getSignupPage = exports.getHomepage = void 0;
+exports.joinSecretClub = exports.logout = exports.attemptLogin = exports.getLoginPage = exports.registerAccount = exports.getSignupPage = exports.getHomepage = void 0;
 const User_1 = require("../models/User");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const express_validator_1 = require("express-validator");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const passport_1 = __importDefault(require("passport"));
 // Show different homepage if logged in or not
 const getHomepage = (req, res) => {
-    res.render('home');
+    if (req.user && req.user.isMember)
+        res.redirect('/posts');
+    res.render('home', {
+        failedJoin: req.query.join === 'false',
+    });
 };
 exports.getHomepage = getHomepage;
 const getSignupPage = (req, res) => {
@@ -87,6 +92,31 @@ const getLoginPage = (req, res) => {
 };
 exports.getLoginPage = getLoginPage;
 // Login attempt
-// export const attemptLogin = expressAsyncHandler(
-//     async (req: Request, res: Response): Promise<void> => {}
-// );
+exports.attemptLogin = passport_1.default.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureMessage: true,
+});
+// Logout
+const logout = (req, res, next) => {
+    req.logout((err) => {
+        if (err)
+            next(err);
+        else
+            res.redirect('/');
+    });
+};
+exports.logout = logout;
+// Secret club join attempt
+exports.joinSecretClub = [
+    (0, express_validator_1.body)('secret', 'You are too loud to join us. Access denied.').trim().isEmpty(),
+    (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
+        const errors = (0, express_validator_1.validationResult)(req);
+        if (!errors.isEmpty()) {
+            return res.redirect('/?join=false');
+        }
+        yield User_1.User.findByIdAndUpdate((_a = req.user) === null || _a === void 0 ? void 0 : _a._id, { isMember: true });
+        res.redirect('/messages');
+    })),
+];

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    h1 New Post
+
+    if errors
+        ul
+            each error in errors
+                li(class="text-red-300")= error.msg
+
+    form(action="" method="POST" class="w-[min(400px,85vw)] my-4 flex flex-col gap-2")
+        label(class="flex flex-col") Title:
+            input(name="title" type="text" class="px-1 text-zinc-800" placeholder="Title" required)
+        label(class="flex flex-col") Message:
+            textarea(name="text" class="px-1 text-zinc-800" rows=10 placeholder="Message..." required)
+
+
+        button(type="submit" class="self-end text-lg hover:scale-125 hover:font-bold" aria-label="Post message") > Post <

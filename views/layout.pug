@@ -1,23 +1,32 @@
 doctype html
 html
+    -
+        let tabTitle;
+        if (currentUser) {
+            if (currentUser.isMember) tabTitle = 'Speak but HUSHed';
+            else tabTitle = 'You are HUSHed...for now';
+        } else {
+            tabTitle = 'You are HUSHed';
+        }
     head
         meta(charset="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        title= loggedInUser && loggedInUser.member ? 'Speak HUSHed' : 'You are HUSHed'
-        link(rel='stylesheet' href='stylesheets/styles.css')
+        title= tabTitle
+        link(rel='stylesheet' href='/stylesheets/styles.css')
 
     body(class="flex flex-col min-h-screen text-zinc-200 font-jost")
 
-        header(class="flex items-center justify-between h-16 px-6 text-lg bg-zinc-900")
-            a(href="/"): button(class="text-3xl font-bold hover:scale-125") HUSH.
+        header(class="flex items-center justify-between h-16 px-6 bg-zinc-900")
+            a(href="/"): button(class="text-2xl font-bold sm:text-3xl hover:scale-125") HUSH.
 
             nav(class="flex items-center gap-4")
-                if loggedInUser
-                    a(href=loggedInUser.url class="hover:scale-125"): button Profile
+                if currentUser
+                    a(href="/posts" class="hover:scale-125"): button Posts
+                    a(href=currentUser.url class="hover:scale-125"): button Profile
                     a(href="/logout" class="hover:scale-125"): button Logout
                 else
-                    a(href="/login" class="ml-auto hover:scale-125"): button Login
                     a(href="/signup" class="hover:scale-125"): button Sign up
+                    a(href="/login" class="ml-auto hover:scale-125"): button Login
 
-        main(class="flex flex-col items-center flex-1 p-6 bg-zinc-800")
+        main(class="relative flex flex-col items-center flex-1 p-6 bg-zinc-800")
             block content

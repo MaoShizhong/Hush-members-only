@@ -23,20 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.indexRouter = void 0;
+exports.messagesRouter = void 0;
 const express_1 = require("express");
-const indexController = __importStar(require("../controllers/index_controller"));
-exports.indexRouter = (0, express_1.Router)();
-/* GET home page. */
-exports.indexRouter.get('/', indexController.getHomepage);
-/* GET signup page */
-exports.indexRouter.get('/signup', indexController.getSignupPage);
-/* POST submit signup form */
-exports.indexRouter.post('/signup', indexController.registerAccount);
-/* GET login page */
-exports.indexRouter.get('/login', indexController.getLoginPage);
-/* POST login attempt */
-exports.indexRouter.post('/login', indexController.attemptLogin);
-// Logout
-exports.indexRouter.get('/logout', indexController.logout);
-exports.indexRouter.post('/join', indexController.joinSecretClub);
+const messagesController = __importStar(require("../controllers/messages_controller"));
+exports.messagesRouter = (0, express_1.Router)();
+exports.messagesRouter.get('/', messagesController.showMessageBoard);
