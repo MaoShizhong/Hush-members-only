@@ -126,6 +126,6 @@ export const joinSecretClub = [
             : { isMember: true };
 
         await User.findByIdAndUpdate(req.user?._id, updatedMemberStatus);
-        res.redirect('/messages');
+        res.redirect('/posts');
     }),
 ];

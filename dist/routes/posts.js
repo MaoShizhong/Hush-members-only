@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postsRouter = void 0;
+exports.isLoggedIn = exports.postsRouter = void 0;
 const express_1 = require("express");
 const postsController = __importStar(require("../controllers/posts_controller"));
 exports.postsRouter = (0, express_1.Router)();
@@ -33,6 +33,7 @@ const isLoggedIn = (req, res, next) => {
     else
         next();
 };
+exports.isLoggedIn = isLoggedIn;
 const isAdminAccount = (req, res, next) => {
     var _a;
     if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.isAdmin))
@@ -41,9 +42,9 @@ const isAdminAccount = (req, res, next) => {
         next();
 };
 // GET base post board
-exports.postsRouter.get('/', isLoggedIn, postsController.showPosts);
+exports.postsRouter.get('/', exports.isLoggedIn, postsController.showPosts);
 // GET new post form
-exports.postsRouter.get('/new', isLoggedIn, postsController.getNewPostForm);
+exports.postsRouter.get('/new', exports.isLoggedIn, postsController.getNewPostForm);
 // POST submit new post
-exports.postsRouter.post('/new', isLoggedIn, postsController.addNewPost);
-exports.postsRouter.get('/:id/delete', isLoggedIn, isAdminAccount, postsController.deletePost);
+exports.postsRouter.post('/new', exports.isLoggedIn, postsController.addNewPost);
+exports.postsRouter.get('/:id/delete', exports.isLoggedIn, isAdminAccount, postsController.deletePost);

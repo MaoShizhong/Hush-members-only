@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    h1(class="my-2 text-3xl font-bold") Delete account?
+
+    form(action="" method="POST" class="flex gap-8")
+        button(type="submit" class="hover:scale-125 hover:font-bold") YES
+        a(href="/"): button(type="button" class="hover:scale-125 hover:font-bold") NO

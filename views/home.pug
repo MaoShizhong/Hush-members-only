@@ -10,7 +10,7 @@ block content
 
             form(action="/join" method="POST" class="flex flex-col gap-4 mt-4")
                 label(for="secret" class="text-center")= joinHeading
-                input(name="secret" id="secret" type="text" class="px-1 text-zinc-800" placeholder="Shhhhhh...")
+                input(name="secret" id="secret" type="password" class="px-1 text-zinc-800" placeholder="Shhhhhh...")
 
                 button(type="submit" class="hover:scale-110" aria-label="Enable secret membership") > Attempt to join in silence <
 

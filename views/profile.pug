@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    -
+        const fullName = user.lastname ? `${user.firstname} ${user.lastname}` : user.firstname;
+    h1(class="my-4 text-3xl font-bold")= user.username
+
+    if currentUser.username === user.username
+        p Hello, #{fullName}!
+        a(href=`${user.url}/delete` class="mt-16 hover:scale-110 hover:font-bold"): button > Delete account <
+

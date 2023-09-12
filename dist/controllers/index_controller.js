@@ -124,6 +124,6 @@ exports.joinSecretClub = [
             ? { isMember: true, isAdmin: true }
             : { isMember: true };
         yield User_1.User.findByIdAndUpdate((_a = req.user) === null || _a === void 0 ? void 0 : _a._id, updatedMemberStatus);
-        res.redirect('/messages');
+        res.redirect('/posts');
     })),
 ];
