@@ -31,7 +31,7 @@ exports.usersRouter = (0, express_1.Router)();
 const isSameUser = (req, res, next) => {
     var _a;
     if (((_a = req.user) === null || _a === void 0 ? void 0 : _a.username) !== req.params.username) {
-        res.redirect('/?too_loud=go_away');
+        res.redirect('/?volume=403dBA&too_loud=go_away');
     }
     else {
         next();

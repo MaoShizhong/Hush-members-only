@@ -19,7 +19,7 @@ block content
     form(action="" method="POST" class="flex flex-col gap-4")
         label(class="flex flex-col")
             p(class="text-sm") Username (required):
-            input(name="username" type="text" class="px-1 text-zinc-800" autocomplete="off" required min=4 value=(errors && username))
+            input(name="username" type="text" class="px-1 text-zinc-800" autocomplete="off" required min=4 value=(errors && username) autofocus)
         label(class="flex flex-col")
             p(class="text-sm") First name (required):
             input(name="firstname" type="text" class="px-1 text-zinc-800" autocomplete="off" required value=(errors && firstname))
@@ -32,6 +32,6 @@ block content
         label(class="flex flex-col")
             p(class="text-sm") Confirm password (required):
             input(name="confirm-password" type="password" class="px-1 password text-zinc-800" autocomplete="off")
-        button(type="submit" class="self-center text-lg hover:scale-110 hover:font-bold" aria-label="Register account") > Join quietly <
+        button(type="submit" class="self-center text-lg transition hover:scale-110 hover:font-bold" aria-label="Register account") > Join quietly <
 
     script(defer src="/scripts/signup.js")

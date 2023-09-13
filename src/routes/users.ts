@@ -7,7 +7,7 @@ export const usersRouter = Router();
 
 const isSameUser = (req: Request, res: Response, next: NextFunction): void => {
     if (req.user?.username !== req.params.username) {
-        res.redirect('/?too_loud=go_away');
+        res.redirect('/?volume=403dBA&too_loud=go_away');
     } else {
         next();
     }

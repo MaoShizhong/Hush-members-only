@@ -111,7 +111,7 @@ export const joinSecretClub = [
         .trim()
         .custom(
             (password: string): boolean =>
-                password === '' || password === 'flippityfloppitybippityboppity'
+                password === '' || password === process.env.ADMIN_PASSWORD
         ),
 
     expressAsyncHandler(async (req: Request, res: Response): Promise<void> => {

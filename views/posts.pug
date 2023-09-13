@@ -17,7 +17,7 @@ block content
     each post in posts
         div(class="flex items-center w-[min(100%,740px)] gap-2")
             a(href=(currentUser.isMember ? post.author.url : '/?too_loud=go_away') class="flex-1")
-                div(class="flex flex-col gap-4 p-3 my-1 border rounded-md bg-zinc-700 hover:bg-zinc-600")
+                div(class="flex flex-col gap-4 p-3 my-1 transition border rounded-md bg-zinc-700 hover:bg-zinc-600")
                     div(class="flex justify-between")
                         h2(class="font-bold")= post.title
                         h2(class="italic") from: #[b #{currentUser.isMember ? post.author.username : 'Anonymous'}]
@@ -33,5 +33,6 @@ block content
     else
         p(class="mt-6") Nothing here!
 
+    // Add new post
     if currentUser.isMember
-        a(href='posts/new'): button(class="fixed h-8 aspect-square rounded-2xl bg-zinc-300 text-cl text-zinc-800 bottom-4 right-4") +
+        a(href='posts/new'): button(class="fixed h-10 aspect-square rounded-[50%] bg-zinc-300 text-xl text-zinc-800 bottom-4 right-4 hover:scale-125 transition") +

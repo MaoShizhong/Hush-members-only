@@ -548,10 +548,6 @@ video {
   bottom: 1rem;
 }
 
-.left-4{
-  left: 1rem;
-}
-
 .right-4{
   right: 1rem;
 }
@@ -621,8 +617,8 @@ video {
   aspect-ratio: 1 / 1;
 }
 
-.h-12{
-  height: 3rem;
+.h-10{
+  height: 2.5rem;
 }
 
 .h-16{
@@ -699,8 +695,8 @@ video {
   align-self: center;
 }
 
-.rounded-2xl{
-  border-radius: 1rem;
+.rounded-\[50\%\]{
+  border-radius: 50%;
 }
 
 .rounded-md{
@@ -783,6 +779,11 @@ video {
 .text-sm{
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold{

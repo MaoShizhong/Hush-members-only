@@ -29,7 +29,7 @@ const postsController = __importStar(require("../controllers/posts_controller"))
 exports.postsRouter = (0, express_1.Router)();
 const isLoggedIn = (req, res, next) => {
     if (!req.user)
-        res.redirect('/?too_loud=go_away');
+        res.redirect('/?volume=403dBA&too_loud=go_away');
     else
         next();
 };
@@ -37,7 +37,7 @@ exports.isLoggedIn = isLoggedIn;
 const isAdminAccount = (req, res, next) => {
     var _a;
     if (!((_a = req.user) === null || _a === void 0 ? void 0 : _a.isAdmin))
-        res.redirect('/?too_loud=go_away');
+        res.redirect('/?volume=403dBA&too_loud=go_away');
     else
         next();
 };

@@ -113,7 +113,7 @@ exports.logout = logout;
 exports.joinSecretClub = [
     (0, express_validator_1.body)('secret', 'You are too loud to join us. Access denied.')
         .trim()
-        .custom((password) => password === '' || password === 'flippityfloppitybippityboppity'),
+        .custom((password) => password === '' || password === process.env.ADMIN_PASSWORD),
     (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         const errors = (0, express_validator_1.validationResult)(req);
