@@ -8,11 +8,14 @@ html
         } else {
             tabTitle = 'You are HUSHed';
         }
+
+        const favicon = currentUser && currentUser.isMember ? '/speak.ico' : '/hush.ico'
     head
         meta(charset="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         title= tabTitle
         link(rel='stylesheet' href='/stylesheets/styles.css')
+        link(rel="icon" href=favicon type="image/x-icon")
 
     body(class="flex flex-col min-h-screen text-zinc-200 font-jost")
 
