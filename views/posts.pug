@@ -19,7 +19,7 @@ block content
             a(href=(currentUser.isMember ? post.author.url : '/?too_loud=go_away') class="flex-1")
                 div(class="flex flex-col gap-4 p-3 my-1 transition border rounded-md bg-zinc-700 hover:bg-zinc-600")
                     div(class="flex justify-between")
-                        h2(class="font-bold")= post.title
+                        h2(class="font-bold")!= post.title
                         h2(class="italic") from: #[b #{currentUser.isMember ? post.author.username : 'Anonymous'}]
                     div
                         each line in post.text
